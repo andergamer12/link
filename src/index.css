@@ -11,3 +11,83 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* App.css */
+
+.QRGenerator .url-list-table {
+  width: 100%; /* Ajusta el ancho según sea necesario */
+  max-width: 800px; /* Limita el ancho máximo de la tabla */
+  margin: 0 auto; /* Centra la tabla */
+  border-collapse: collapse; /* Colapsa los bordes para una mejor visualización */
+}
+
+.QRGenerator .url-list-table th, 
+.QRGenerator .url-list-table td {
+  border: 1px solid #ddd; /* Borde de las celdas */
+  padding: 8px; /* Espaciado interno de las celdas */
+  text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.QRGenerator .url-list-table th {
+  background-color: #f2f2f2; /* Color de fondo para los encabezados */
+}
+
+.QRGenerator .url-list-container {
+  max-width: 100%;
+  overflow-x: auto; /* Agrega scroll horizontal si el contenido se desborda */
+  margin-top: 20px;
+}
+.login-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.logo {
+  margin-bottom: 20px; /* Espacio entre el logo y el formulario */
+  margin-top: -50px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px; /* Ajusta el ancho máximo del formulario si es necesario */
+}
+
+.login-form div {
+  margin-bottom: 15px;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 8px;
+}
+
+.login-form button {
+  padding: 10px 20px;
+}
+
+
+.logo-negro {
+  position: absolute;
+  top: 20px; 
+  left: 20px;
+}
+@media (max-width: 768px){
+  .logo-negro {
+    height:50px;
+     width:50px
+  }
+  
+ 
+  
+}

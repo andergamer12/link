@@ -1,38 +1,491 @@
 .App {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  font-size: clamp(24px, 5vw, 36px);
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: clamp(10px, 3vw, 16px);
+  background-color: black;
+  color: white;
+  border: solid;
+  border-color: black;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+input[type="url"], input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: clamp(14px, 3vw, 16px);
+  box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+button:hover {
+  transform: scale(1.05); 
+  background-color: white;
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.qr-canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.qr-url {
+  font-size: clamp(40px, 4vw, 24px);
+  text-align: center;
+  word-break: break-all;
+  
+  width: 500px;
+}
+
+
+.qr-buttons {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 10px;
+  margin-top: 10px;
+}
+.qr-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+
+
+.qr-form button {
+  margin-top: 10px;
+}
+
+.buscar {
+  margin-bottom: '20px';
+  padding: '10px';
+  width: '100%';
+  max-width: '600px';
+}
+/* Estilos para móvil */
+@media (max-width: 768px) {
+  .buscar {
+    margin-bottom: '20px';
+    padding: '10px';
+    width: '100%';
+    max-width: '600px';
+  }
+  .App {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  li {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .qr-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .qr-buttons button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  
+}
+.QRGenerator {
+  padding: 100px;
+}
+.UrlShortener {
+  padding: 100px;
+}
+
+@media (max-width: 900px) {
+  .QRGenerator {
+    padding: 50px;
+  }
+  .UrlShortener {
+    padding: 50px;
+  }
+  
+  .qr-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .qr-buttons button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+
+@media (min-width: 769px) {
+  li {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .qr-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .qr-buttons {
+    justify-content: flex-end;
+  }
+}
+input[type="url"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.modal-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modal-content th, .modal-content td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.modal-content th {
+  background-color: #f2f2f2;
+}
+.grafico {
+  width: 50%;
+  height: 400px;
+  margin: 40px 25% 80px;
+}
+
+.grafico-title {
+  text-align: center;
+}
+
+@media (max-width: 768px){
+
+
+  .grafico {
+    width: 100%;
+    height: 200px;
+    margin: 0px auto 20px; /* 'auto' para centrar horizontalmente el contenedor */
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en una columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center; /* Opcional: centra los elementos verticalmente */
+  }
+  
+  .grafico-title {
+    text-align: center;
+  }
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+  }
+  
+  .modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .modal-content th, .modal-content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .modal-content th {
+    background-color: #f2f2f2;
+  }
+}
+
+body {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.home-page-content {
+  display: flex;
+  flex: 1;
+}
+
+.left-half {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.right-half {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.button-app {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 40px;
+  font-family: 'Bebas Neue', sans-serif;
+}
+@media (max-width: 768px) {
+  .button-app {
+    padding: 5px 10px;
+    font-size: 20px; /* La mitad del tamaño original */
+  }
+}
+
+.button-white {
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+  
+}
+
+.button-black {
+  background-color: black;
   color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+  
 }
 
-.App-link {
-  color: #61dafb;
+.button-white:hover {
+  background-color: white; /* Color de fondo al pasar el mouse */
+  transform: scale(1.05); /* Escala el botón al 105% de su tamaño original para un efecto más suave */
+}
+.button-black:hover {
+  background-color: black; /* Color de fondo al pasar el mouse */
+  transform: scale(1.05); /* Escala el botón al 105% de su tamaño original para un efecto más suave */
+  color: white
+}
+.volver-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+  font-size: 18px;
+  border-radius: 4px;
+}
+.volver-button:hover {
+  transform: scale(1.1);
+}
+.logout-button {
+  position: absolute;
+  font-size: 18px;
+  top: 10px;
+  right: 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+  border-radius: 4px;
+}
+@media (max-width: 768px) {
+  .logout-button {
+    font-size: 12px;
+  }
+  .volver-button {
+    font-size: 12px;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logout-button:hover {
+
+  transform: scale(1.1);
+}
+
+
+
+.welcome-header {
+  text-align: center;
+  margin: 20px;
+}
+
+.pagination {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination a {
+  text-decoration: none;
+  color: #007bff;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.pagination .active a {
+  font-weight: bold;
+  color: #333;
+  border-color: #333;
+}
+/* Estilo para el contenedor del formulario */
+.login-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  background-color: black; /* Fondo opcional */
+}
+
+/* Estilo para el formulario */
+.login-form {
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* Máximo ancho del formulario */
+  display: flex;
+  flex-direction: column; /* Alinea los elementos en columna */
+  align-items: center; /* Centra horizontalmente los elementos */
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-form label {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 8px;
+  text-align: center; /* Centra el texto del label */
+}
+
+.login-form input {
+  font-size: 18px;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%; /* Ajusta el ancho del input */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: block;
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
+}
+
+.login-form button {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  width: 80%;
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
+.login-form button:hover {
+  transform: scale(1.1);
 }
